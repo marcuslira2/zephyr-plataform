@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "b1765470-5c88-4554-8043-c76ca861a2e9",
+		"name": "Kafka",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14072327"
+	},
+	"item": [
+		{
+			"name": "topic.send.csv.consumer",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"path\":\"Path\",\n    \"type\":\"CONSUMER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/csv/send",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"csv",
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "topic.send.csv.kafka",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"path\":\"Path\",\n    \"type\":\"CONSUMER\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:9090/csv/send",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "9090",
+					"path": [
+						"csv",
+						"send"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
