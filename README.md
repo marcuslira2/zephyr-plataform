@@ -2,13 +2,18 @@
 
 ## Descrição
 
-O **Zephyr Platformr** é um projeto focado em comparar duas abordagens para consumir e persistir dados de um arquivo `.csv`: utilizando um serviço consumidor tradicional e usando o **Kafka Connect**.
+O **Zephyr Platform** é um projeto focado em comparar duas abordagens para consumir e persistir dados de um arquivo `.csv`: utilizando um serviço consumidor tradicional e usando o **Kafka Connect**.
 
-Este projeto inclui um `docker-compose.yml` que define e configura um ambiente baseado em contêineres com **Kafka**, **PostgreSQL** e **Kafka Connect**, facilitando a inicialização e a orquestração dos serviços necessários para o processamento de mensagens e persistência de dados.
+Este repositório serve como um "pai" para os módulos principais do projeto, organizando os repositórios individuais:
+- **[Zephyr Producer](https://github.com/marcuslira2/zephyr-producer)** - Responsável por ler arquivos CSV e produzir mensagens para o Kafka.
+- **[Zephyr Consumer](https://github.com/marcuslira2/zephyr-consumer)** - Responsável por consumir as mensagens do Kafka e persistir no banco de dados.
+- **[Zephyr Infra](https://github.com/marcuslira2/zephyr-infra)** - Contém a infraestrutura Docker para subir o ambiente com Kafka, PostgreSQL e Kafka Connect.
 
 ---
 
 ## 📌 Infraestrutura e Serviços
+
+O `docker-compose.yml` localizado no repositório **Zephyr Infra** define e configura um ambiente baseado em contêineres com **Kafka**, **PostgreSQL** e **Kafka Connect**, facilitando a inicialização e a orquestração dos serviços necessários para o processamento de mensagens e persistência de dados.
 
 ### 1. PostgreSQL (`postgres`)
 - Banco de dados relacional para armazenamento de dados.
@@ -30,11 +35,6 @@ Este projeto inclui um `docker-compose.yml` que define e configura um ambiente b
 - Expõe sua API REST na porta **8083**.
 - Configurado para armazenar informações de configuração, offsets e status em tópicos internos.
 - Plugins e conectores podem ser adicionados no diretório `./connect-plugins`.
-
-### 🌐 Rede e Persistência
-- Todos os serviços fazem parte da rede Docker chamada `minha_rede`, garantindo a comunicação entre os contêineres.
-- O uso de volumes garante persistência dos dados do PostgreSQL.
-- O ambiente permite aplicações com processamento assíncrono e integração de dados entre diferentes sistemas, usando **Kafka** como middleware de mensagens.
 
 ---
 
@@ -69,7 +69,7 @@ Esse conector facilita a ingestão contínua de dados do Kafka para o PostgreSQL
 
 Os serviços Java foram desenvolvidos com **Java 17**, utilizando **Maven** para automação de build.
 
-- **Serviço Produtor**:
+- **Zephyr Producer**:
   - Lê um arquivo CSV da pasta configurada.
   - Envia os dados para um tópico correspondente ao tipo de processamento desejado:
     - **CONSUMER**: Envia um lote de mensagens comprimidas para que o serviço consumidor receba, descomprima, leia e persista os dados.
@@ -86,15 +86,13 @@ Os serviços Java foram desenvolvidos com **Java 17**, utilizando **Maven** para
 - **Postman** (ou outra ferramenta para enviar requisições HTTP)
 
 ### 🚀 Passos para Configuração
-1. Configure o ambiente do Java corretamente.
-2. Ajuste o arquivo `sink-config.json` conforme necessário.
-3. Configure os arquivos `application.properties` ou `application.yml` dos serviços Java.
-4. Importe a collection de requisições que está na pasta `config` do Postman.
-5. Suba os dois serviços Java (produtor e consumidor).
-6. Após tudo estar configurado corretamente, envie as requisições via Postman.
-7. **Importante**: Substitua o caminho na request do Postman pelo caminho real das pastas de CSV:
-   - `small/` para um teste com **10 linhas**.
-   - `large/` para um teste com **1 milhão de linhas**.
+1. Clone os repositórios individuais e configure cada um conforme as instruções em seus respectivos `README.md`.
+2. Configure o ambiente do Java corretamente.
+3. Ajuste o arquivo `sink-config.json` conforme necessário.
+4. Configure os arquivos `application.properties` ou `application.yml` dos serviços Java.
+5. Importe a collection de requisições que está na pasta `config` do Postman.
+6. Suba os dois serviços Java (produtor e consumidor).
+7. Envie as requisições via Postman para processar os arquivos CSV.
 
 ---
 
@@ -103,10 +101,6 @@ Os serviços Java foram desenvolvidos com **Java 17**, utilizando **Maven** para
 ### 📊 Verificar se um tópico tem mensagens acumuladas:
 ```bash
 docker exec -it kafka kafka-run-class kafka.tools.GetOffsetShell --broker-list localhost:9092 --topic {NOME_DO_TOPICO} --time -1
-```
-**Resposta esperada:**
-```
-{NOME_DO_TOPICO}:0:0
 ```
 
 ### 📜 Listar tópicos disponíveis:
@@ -128,5 +122,5 @@ Este projeto está sob a licença **MIT**. Sinta-se livre para usar, modificar e
 ---
 
 ## 📫 Contato
-Caso tenha alguma dúvida ou sugestão, entre em contato via [GitHub Issues](https://github.com/marcuslira2/zephyr-stream-processor/issues).
+Caso tenha alguma dúvida ou sugestão, entre em contato via [GitHub Issues](https://github.com/marcuslira2/zephyr-platform/issues).
 
