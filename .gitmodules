@@ -1,0 +1,9 @@
+[submodule "services/producer"]
+	path = services/producer
+	url = https://github.com/marcuslira2/zephyr-producer.git
+[submodule "services/consumer"]
+	path = services/consumer
+	url = https://github.com/marcuslira2/zephyr-consumer.git
+[submodule "infra"]
+	path = infra
+	url = https://github.com/marcuslira2/zephyr-infra.git
