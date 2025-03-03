@@ -1,8 +1,8 @@
-# Zephyr Stream Processor
+# Zephyr Platform
 
 ## Descrição
 
-O **Zephyr Stream Processor** é um projeto focado em comparar duas abordagens para consumir e persistir dados de um arquivo `.csv`: utilizando um serviço consumidor tradicional e usando o **Kafka Connect**.
+O **Zephyr Platformr** é um projeto focado em comparar duas abordagens para consumir e persistir dados de um arquivo `.csv`: utilizando um serviço consumidor tradicional e usando o **Kafka Connect**.
 
 Este projeto inclui um `docker-compose.yml` que define e configura um ambiente baseado em contêineres com **Kafka**, **PostgreSQL** e **Kafka Connect**, facilitando a inicialização e a orquestração dos serviços necessários para o processamento de mensagens e persistência de dados.
 
